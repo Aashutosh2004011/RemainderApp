@@ -1,0 +1,362 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.reminder-app {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 40px);
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Current Time Display */
+.current-time-container {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.current-time-container:hover {
+  transform: scale(1.02);
+}
+
+.current-time-container::after {
+  content: 'Click to toggle speed';
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+}
+
+.current-time {
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.current-time.fast-mode {
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.clock-icon {
+  color: white;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+}
+
+.clock-icon.fast-mode {
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reminders List */
+.reminders-list {
+  flex: 1;
+  padding: 24px;
+  background: #f8f9fa;
+  overflow-y: auto;
+  max-height: 400px;
+  min-height: 300px;
+}
+
+.reminder-item {
+  background: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-left: 4px solid #667eea;
+}
+
+.reminder-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.reminder-item.completed {
+  opacity: 0.6;
+  border-left-color: #6c757d;
+}
+
+.reminder-item.completed .reminder-title {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.reminder-item.completed .reminder-time {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+.reminder-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reminder-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.reminder-time {
+  font-size: 14px;
+  color: #718096;
+  font-weight: 500;
+}
+
+.delete-btn {
+  background: transparent;
+  border: none;
+  color: #e53e3e;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #fff5f5;
+  transform: scale(1.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Add Reminder Form */
+.add-reminder-form {
+  padding: 24px;
+  background: white;
+  border-top: 1px solid #e2e8f0;
+}
+
+.input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.reminder-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.reminder-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.time-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.time-input {
+  padding: 14px 18px;
+  padding-right: 50px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+  background: white;
+}
+
+.time-input:focus {
+  border-color: #48bb78;
+  box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.1);
+}
+
+.time-icon {
+  position: absolute;
+  right: 12px;
+  color: #48bb78;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+}
+
+.add-btn:active {
+  transform: translateY(0);
+}
+
+/* Scrollbar Styling */
+.reminders-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reminders-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.reminders-list::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 10px;
+}
+
+.reminders-list::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  :host {
+    padding: 10px;
+  }
+
+  .container {
+    border-radius: 16px;
+  }
+
+  .current-time {
+    font-size: 32px;
+  }
+
+  .current-time-container {
+    padding: 24px 16px;
+  }
+
+  .clock-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .reminders-list {
+    padding: 16px;
+    max-height: 300px;
+  }
+
+  .reminder-item {
+    padding: 12px 16px;
+  }
+
+  .reminder-title {
+    font-size: 15px;
+  }
+
+  .reminder-time {
+    font-size: 13px;
+  }
+
+  .add-reminder-form {
+    padding: 16px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .reminder-input,
+  .time-input {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .time-input-container {
+    width: 100%;
+  }
+
+  .time-input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .current-time {
+    font-size: 28px;
+  }
+
+  .current-time-container::after {
+    font-size: 9px;
+    bottom: 6px;
+    right: 12px;
+  }
+}

@@ -1,0 +1,64 @@
+<div class="reminder-app">
+  <div class="container">
+    <!-- Current Time Display with Clock Icon -->
+    <div class="current-time-container" (click)="toggleFastMode()">
+      <div class="current-time" [class.fast-mode]="isFastMode">
+        {{ formattedCurrentTime }}
+      </div>
+      <div class="clock-icon" [class.fast-mode]="isFastMode">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Reminders List -->
+    <div class="reminders-list">
+      <div *ngFor="let reminder of reminders" class="reminder-item" [class.completed]="reminder.isCompleted">
+        <div class="reminder-content">
+          <span class="reminder-title">{{ reminder.title }}</span>
+          <span class="reminder-time">{{ formatReminderTime(reminder.time) }}</span>
+        </div>
+        <button class="delete-btn" (click)="deleteReminder(reminder.id)" aria-label="Delete reminder">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div *ngIf="reminders.length === 0" class="empty-state">
+        <p>No reminders yet. Add one below!</p>
+      </div>
+    </div>
+
+    <!-- Add Reminder Form -->
+    <div class="add-reminder-form">
+      <div class="input-group">
+        <input
+          type="text"
+          [(ngModel)]="newReminderTitle"
+          placeholder="Reminder title..."
+          class="reminder-input"
+          (keydown.enter)="addReminder()"
+        />
+        <div class="time-input-container">
+          <input
+            type="time"
+            [(ngModel)]="newReminderTime"
+            class="time-input"
+          />
+          <div class="time-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <button class="add-btn" (click)="addReminder()">
+        Add Remainder
+      </button>
+    </div>
+  </div>
+</div>
